@@ -1,14 +1,9 @@
 // baza: stary skrypt generujący liczby pierwsze; modyfikacji - nie aż tak dużo
 
-let foundNumbersCount = 0;
-let checkedNumber = 0;
-let i = 1;
-let divisorCount;
 
-
-while (foundNumbersCount < 9) {
-
-    // sprawdź liczbę dzielników liczby
+function countDivisors(checkedNumber) {
+    let i = 1;
+    let divisorCount = 0;
     while (i <= checkedNumber) {
         if (checkedNumber % i == 0) {
             divisorCount = divisorCount + 1;
@@ -16,29 +11,47 @@ while (foundNumbersCount < 9) {
         i = i + 1;
     }
 
-    // jeżeli liczba jest pierwsza, odnotuj to i narysuj co trzeba
-    if (divisorCount == 2) {
-        foundNumbersCount = foundNumbersCount + 1;
+    return divisorCount;
+}
 
-        let output = checkedNumber + ': ';
-        let k = 1;
 
-        // budujemy output
-        while (k <= checkedNumber) {
+function isPrimeNumber(number) {
 
-            output = output + '|';
-            if (k % 5 == 0) { // dodaj przerwę co 5 kresek
-                output = output + ' ';
-            }
+    let divisorCount = countDivisors(number);
+    return divisorCount === 2;
+}
 
-            k = k + 1;
+
+function formatOutput(checkedNumber) {
+
+    let output = checkedNumber + ': ';
+    let k = 1;
+
+    while (k <= checkedNumber) {
+
+        output = output + '|';
+        if (k % 5 == 0) { // dodaj przerwę co 5 kresek
+            output = output + ' ';
         }
 
-        console.log(output);
+        k = k + 1;
+    }
+
+    return output;
+}
+
+
+let foundNumbersCount = 0;
+let checkedNumber = 0;
+
+while (foundNumbersCount < 9) {
+
+    if (isPrimeNumber(checkedNumber)) {
+
+        foundNumbersCount++;
+        console.log(formatOutput(checkedNumber));
     }
 
     // przygotowanie do następnej iteracji
-    divisorCount = 0;
-    i = 1;
-    checkedNumber = checkedNumber + 1;
+    checkedNumber++;
 }

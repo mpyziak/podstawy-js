@@ -2,7 +2,10 @@ var readline = require('readline');
 var rl = readline.createInterface(process.stdin, process.stdout);
 rl.setPrompt('input> ');
 
-exports.prompter = (callback) => {
+exports.prompter = (callback, message) => {
+    if (message) {
+        console.log(message);
+    }
     rl.prompt();
     rl.on('line', function (line) {
         if (line === "exit") rl.close(); else callback(line);
